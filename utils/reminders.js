@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const Achievement = require('../models/Achievement');
+const Achievement = require('../models/achievement');
 const User = require('../models/User');
 
 // Daily reminder at 9 AM
