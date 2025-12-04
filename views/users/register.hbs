@@ -1,37 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Register - Game Tracker</title>
-</head>
-<body>
-  <h1>Register</h1>
+<link rel="stylesheet" href="/css/style.css">
 
-  {{#if errors}}
-    {{#each errors}}
-      <p style="color:red">{{this.msg}}</p>
-    {{/each}}
-  {{/if}}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Register</h2>
 
-  <form action="/users/register" method="POST">
-    <div>
-      <label>Username:</label>
-      <input type="text" name="username" value="{{username}}" required>
-    </div>
-    <div>
-      <label>Email:</label>
-      <input type="email" name="email" value="{{email}}" required>
-    </div>
-    <div>
-      <label>Password:</label>
-      <input type="password" name="password" required>
-    </div>
-    <div>
-      <label>Confirm Password:</label>
-      <input type="password" name="password2" required>
-    </div>
-    <button type="submit">Register</button>
-  </form>
+    {{#if errors}}
+      {{#each errors}}
+        <div class="error-msg">{{msg}}</div>
+      {{/each}}
+    {{/if}}
 
-  <p><a href="/users/login">Login</a> | <a href="/">Home</a></p>
-</body>
-</html>
+    <form action="/users/register" method="POST">
+      <input type="text" name="username" placeholder="Username" value="{{username}}" required>
+      <input type="email" name="email" placeholder="Email" value="{{email}}" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="password2" placeholder="Confirm Password" required>
+      <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/users/login">Login</a></p>
+  </div>
+</div>
