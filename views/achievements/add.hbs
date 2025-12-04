@@ -1,0 +1,40 @@
+{{!-- Extend your main layout if you have one --}}
+{{!-- {{> header}} --}}
+
+<div class="container mt-5">
+  <h2>Add New Achievement</h2>
+  
+  {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+  {{/if}}
+  
+  {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+  {{/if}}
+
+  {{#if errors}}
+    {{#each errors}}
+      <div class="alert alert-danger">{{this.msg}}</div>
+    {{/each}}
+  {{/if}}
+
+  <form action="/achievements/add" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{title}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="game" class="form-label">Game</label>
+      <input type="text" class="form-control" id="game" name="game" value="{{game}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3" required>{{description}}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Achievement</button>
+    <a href="/achievements/dashboard" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>

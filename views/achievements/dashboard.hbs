@@ -1,0 +1,82 @@
+<div class="container mt-5">
+  <h2>Your Achievements</h2>
+
+  {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+  {{/if}}
+  
+  {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+  {{/if}}
+
+  <a href="/achievements/add" class="btn btn-primary mb-3">Add Achievement</a>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Game</th>
+        <th>Description</th>
+        <th>Completed</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each achievements}}
+        <tr>
+          <td>{{this.title}}</td>
+          <td>{{this.game}}</td>
+          <td>{{this.description}}</td>
+          <td>{{#if this.completed}}✔{{else}}✖{{/if}}</td>
+          <td>
+            <a href="/achievements/edit/{{this._id}}" class="btn btn-sm btn-warning">Edit</a>
+            <form action="/achievements/delete/{{this._id}}?_method=DELETE" method="POST" style="display:inline;">
+              <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <!-- Progress by Game Section -->
+  <div class="mt-5">
+    <h3>Progress by Game</h3>
+
+    <!-- Simple list -->
+    <ul class="list-group mb-4">
+      {{#each games}}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          {{this}}
+          <span class="badge bg-primary rounded-pill">
+            {{lookup ../completionData @index}}%
+          </span>
+        </li>
+      {{/each}}
+    </ul>
+
+    <!-- Chart.js Bar Chart -->
+    <canvas id="progressChart" width="400" height="200"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('progressChart').getContext('2d');
+  const progressChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: {{json games}},
+      datasets: [{
+        label: 'Completion %',
+        data: {{json completionData}},
+        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: { y: { beginAtZero: true, max: 100 } }
+    }
+  });
+</script>

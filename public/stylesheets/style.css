@@ -1,0 +1,16 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.card.bg-success {
+  opacity: 0.8;
+  transition: transform 0.2s;
+}
+.card.bg-success:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <h2>Edit Achievement</h2>
+
+  {{#if success_msg}}
+    <div class="alert alert-success">{{success_msg}}</div>
+  {{/if}}
+  
+  {{#if error_msg}}
+    <div class="alert alert-danger">{{error_msg}}</div>
+  {{/if}}
+
+  {{#if errors}}
+    {{#each errors}}
+      <div class="alert alert-danger">{{this.msg}}</div>
+    {{/each}}
+  {{/if}}
+
+  <form action="/achievements/edit/{{achievement._id}}?_method=PUT" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{achievement.title}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="game" class="form-label">Game</label>
+      <input type="text" class="form-control" id="game" name="game" value="{{achievement.game}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3" required>{{achievement.description}}</textarea>
+    </div>
+
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="completed" name="completed" {{#if achievement.completed}}checked{{/if}}>
+      <label class="form-check-label" for="completed">
+        Completed
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Achievement</button>
+    <a href="/achievements/dashboard" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
